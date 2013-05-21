@@ -1,0 +1,12 @@
+{
+  "name": "minnpost-legislature-roundup-2013",
+  "version": "0.0.1",
+  "main": "index.html",
+  "dependencies": {
+    "jquery": "~1.9.1",
+    "raphael": "~2.1.0",
+    "backbone": "~1.0.0",
+    "jquery-jsonp": "~2.4.0",
+    "underscore": "~1.4.4"
+  }
+}

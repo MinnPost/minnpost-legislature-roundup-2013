@@ -1,0 +1,9 @@
+
+<h4>Bills</h4>
+<div class="bills-list">
+  <ul>
+    <% _.each( bills, function( b ) { %>
+      <li><a data-id="<%= b.cid %>" class="show-bill" href="#show-bill"><i class="bs-icon bs-icon-<%= b.get('bill_status') %>"></i> <%= b.get('bill') %></a></li>
+    <% }); %>
+  </ul>
+</div>

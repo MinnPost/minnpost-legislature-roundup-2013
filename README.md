@@ -17,7 +17,9 @@ Minnesota state legislative roundup.  The goal of this project is to create a vi
 ## Install
 
 1. (optional) Make a virtualenv.
-1. Run: `pip install -r requirements.txt`
+1. `pip install -r requirements.txt`
+1. `bower install`
+1. `npm install`
  
 ## Application
 

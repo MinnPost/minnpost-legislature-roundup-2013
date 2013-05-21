@@ -1,0 +1,113 @@
+
+<div class="bill-details-wrapper">
+  <div class="bill-status"><%= bill.get('bill_status') %> <i class="bs-icon bs-icon-<%= bill.get('bill_status') %>"></i></div>
+  <h4 class="bill-title"><%= bill.get('bill') %></h4>
+  <p class="bill-description"><span class="bill-title"><%= bill.get('title') %></span> [<a target="_blank" href="<%= bill.get('billurl') %>">view bill status and details</a>]</p>
+  
+  
+  <% if (typeof bill.get('start_date') != 'undefined' && (bill.getDays() != NaN || bill.getDays() != 'NaN')) { %>
+    <div class="bill-timeline">
+      <% if (bill.get('bill_status') == 'signed') { %>
+        <p>This bill took about <span class="timeline-days"><%= bill.getDays() %> days</span> to become law.</p>
+      <% } else if (bill.get('bill_status') == 'vetoed') { %>
+        <p>This bill was considered for at least <span class="timeline-days"><%= bill.getDays() %> days</span>.</p>
+      <% } else { %>
+        <p>This bill has been considered for at least <span class="timeline-days"><%= bill.getDays() %> days</span>.</p>
+      <% } %>
+      <div class="session-start">
+        <span>Jan 24</span>
+      </div>
+      <div class="bill-timeline-container">
+        <div style="width: <%= bill.getIntervalPercentage() * 100 %>%; margin-left: <%= bill.getStartPercentage() * 100 %>%;" class="bill-timeline-interval">
+        </div>
+      </div>
+      <div class="session-end">
+        <span>May 10</span>
+      </div>
+      <br class="clear" />
+    </div>
+  <% } %>
+  
+  
+  <div class="bill-house">
+    <% if (typeof bill.get('house_ayes') != 'undefined') { %>
+      <div class="bill-house-votes bill-votes">
+        <div>
+          <% if (bill.get('house_ayes') < 0) { %>
+            &nbsp;
+          <% } else { %>
+            <%= bill.get('house_ayes') %>-<%= bill.get('house_nays') %>
+          <% } %>
+        </div>
+      </div>
+    <% } %>
+    
+    <div class="bill-house-sponsors">
+      <% if (!_.isEmpty(bill.get('house_sponsors'))) { %>
+        <h6>House Sponsors</h6>
+        <ul>
+          <% _.each( bill.get('house_sponsors'), function( s ) { %>
+            <% if (s[3]) { %>
+              <li>
+                <a target="_blank" href="<%= s[3] %>"><%= s[0] %></a>
+                <% if (s[1]) { %>
+                  (<%= s[1].charAt(0) %>)
+                <% } %>
+              </li>
+            <% } else { %>
+              <li><%= s[0] %></li>
+            <% } %>
+          <% }); %>
+        </ul>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="bill-senate">
+    <% if (typeof bill.get('senate_ayes') != 'undefined') { %>
+      <div class="bill-senate-votes bill-votes">
+        <div>
+          <% if (bill.get('senate_ayes') < 0) { %>
+            &nbsp;
+          <% } else { %>
+            <%= bill.get('senate_ayes') %>-<%= bill.get('senate_nays') %>
+          <% } %>
+        </div>
+      </div>
+    <% } %>
+    
+    <div class="bill-senate-sponsors">
+      <% if (!_.isEmpty(bill.get('senate_sponsors'))) { %>
+        <h6>Senate Sponsors</h6>
+        <ul>
+          <% _.each( bill.get('senate_sponsors'), function( s ) { %>
+            <% if (s[3]) { %>
+              <li>
+                <a target="_blank" href="<%= s[3] %>"><%= s[0] %></a>
+                <% if (s[1]) { %>
+                  (<%= s[1].charAt(0) %>)
+                <% } %>
+              </li>
+            <% } else { %>
+              <li><%= s[0] %></li>
+            <% } %>
+          <% }); %>
+        </ul>
+      <% } %>
+    </div>
+  </div>
+  <br class="clear" />
+  
+  <% if (!_.isEmpty(bill.get('categories'))) { %>
+    <div class="bill-categories">
+      Categories: 
+      <ul>
+        <% _.each( bill.get('categories'), function( c, i, list ) { %>
+          <li>
+            <a href="#<%= c %>" data-category="<%= c %>"><%= c %></a><% if (i < list.length - 1) { %>,<% } %>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </div>
+</div>

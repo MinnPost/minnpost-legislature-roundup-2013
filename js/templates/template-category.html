@@ -1,0 +1,14 @@
+
+<a class="all-categories" href="#all-categories"><i class="bs-icon bs-icon-white bs-icon-circle-arrow-left"></i> back</a>
+<h3>
+  <% if (typeof image_url != 'undefined') { %>
+    <img class="category-image" src="<%= image_url %>" /> 
+  <% } %>
+  <% if (typeof sponsor != 'undefined' && typeof sponsor[2] != 'undefined') { %>
+    <img class="category-image" src="<%= sponsor[2] %>" /> 
+  <% } %>
+  <%= category %>
+  <% if (typeof sponsor != 'undefined' && typeof sponsor[1] != 'undefined') { %>
+    (<%= sponsor[1].charAt(0) %>)
+  <% } %>
+</h3>

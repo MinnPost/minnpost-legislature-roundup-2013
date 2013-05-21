@@ -1,0 +1,364 @@
+
+#category-details,
+#address-chooser,
+#application-nav,
+#tab-container {
+  display: none;
+}
+
+.clear {
+  clear: both;
+}
+      
+.footnote {
+  font-size: .75em;
+  font-style: italic;
+  color: #414141;
+  margin-top: 5em;
+  clear: both;
+}
+
+/**
+ * Nav
+ */
+#application-nav {
+   float:left;
+   width:100%;
+   background:#FFFFFF;
+   overflow:hidden;
+   position:relative;
+}
+#application-nav ul {
+   clear:left;
+   float:left;
+   list-style:none;
+   margin:0;
+   padding:0;
+   position:relative;
+   left:50%;
+   text-align:center;
+}
+#application-nav ul li {
+   display:block;
+   float:left;
+   list-style:none;
+   margin:0;
+   padding:0;
+   position:relative;
+   right:50%;
+}
+#application-nav ul li a {
+   display:block;
+   margin:0 0 0 4px;
+   padding:3px 10px;
+   background:#FFFFFF;
+   text-decoration:none;
+   line-height:1.3em;
+   border-bottom: 1px solid #999999;
+   font-size: 1.2em;
+   opacity: 0.8;
+}
+#application-nav ul li a.tab-active,
+#application-nav ul li a.tab-active:hover {
+   font-weight:bold;
+   border-bottom: 3px solid #999999;
+   opacity: 1;
+}
+
+/**
+ * Bubbles
+ */
+
+/**
+ * Loading
+ */
+.loading-temp {
+  display: block;
+  text-align: center;
+  padding: 6em 1em;
+  color: #E47525;
+  text-transform: uppercase;
+}
+
+/**
+ * Layout
+ */
+#minnpost-legislature-wrapper {
+  margin: auto;
+  width: 975px;
+} 
+#bill-category-container {
+  width: 100%;
+}
+#bills-list-container {
+  width: 15%;
+  float: left;
+}
+#bill-detail-container {
+  width: 85%;
+  float: left;
+}
+
+/**
+ * Bills
+ */
+#bills-list-container {
+  padding-bottom: 1em;
+}
+#bills-list-container h4 {
+  padding-left: 1em;
+  padding-bottom: .5em;
+}
+#bills-list-container .bills-list {
+  height: 417px;
+  overflow: auto;
+  direction: rtl;
+}
+#bills-list-container .bills-list.is-scrolling {
+  -moz-box-shadow: inset 0px 11px 10px -10px rgba(0, 0, 0, .4), inset 0px -11px 10px -10px rgba(0, 0, 0, .4);
+  -webkit-box-shadow: inset 0px 11px 10px -10px rgba(0, 0, 0, .4), inset 0px -11px 10px -10px rgba(0, 0, 0, .4);
+  box-shadow: inset 0px 11px 10px -10px rgba(0, 0, 0, .4), inset 0px -11px 10px -10px rgba(0, 0, 0, .4);
+  border-right: 1px solid #E7E7E9;
+  border-left: 1px solid #E7E7E9;
+  border-top: 1px solid #B3B3B7;
+  border-bottom: 1px solid #B3B3B7;
+}
+#bills-list-container ul,
+#bills-list-container ul li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#bills-list-container ul {
+  padding: .5em 0;
+  border-right: 1px solid #CDCDD0;
+}
+#bills-list-container ul li {
+  direction: ltr;
+}
+#bills-list-container ul li a {
+  display: block;
+  padding: .1em 1em;
+}
+#bills-list-container ul li a.active {
+  background-color: #CDCDD0;
+  color: #222222;
+}
+
+#bill-category-container a {
+  display: block;
+  float: left;
+  font-size: .85em;
+  font-family: NimbusSanNovConD-Bol,Helvetica,Arial,Geneva,sans-serif;
+  text-transform: uppercase;
+  background: #801019;
+  background: rgba(128, 16, 25, 0.7);
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  position: relative;
+  top: 3em;
+  left: 1em;
+}
+#bill-category-container a:hover {
+  background-color: #801019;
+}
+#bill-category-container a i {
+  margin: 0;
+}
+#bill-category-container h3 {
+  text-align: center;
+  padding: 2em 0 1em 0;
+}
+.bill-details-wrapper {
+  padding-left: 2em;
+}
+#bill-detail-container .bill-votes div {
+  font-size: 2.5em;
+  line-height: 1.5em;
+  margin-bottom: .5em;
+}
+#bill-detail-container .bill-id {
+  margin-bottom: 1em;
+}
+#bill-detail-container .bill-house,
+#bill-detail-container .bill-senate {
+  width: 50%;
+  float: left;
+  text-align: center;
+}
+#bill-detail-container .bill-house ul,
+#bill-detail-container .bill-house ul li,
+#bill-detail-container .bill-senate ul,
+#bill-detail-container .bill-senate ul li {
+  list-style: none;
+}
+#bill-detail-container .bill-status {
+  float: right;
+  text-transform: uppercase;
+  margin: 0 0 2em .5em; 
+  font-size: 1em;
+  padding: .5em 1.5em;
+  background-color: #EBEBEB;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+#bill-detail-container .bill-status i {
+  margin: 2px 0 0 0;
+}
+#bill-detail-container h4 {
+  margin-bottom: .75em;
+}
+#bill-detail-container h5 {
+  margin-bottom: 1em;
+}
+#bill-detail-container .bill-house h5 {
+  margin-right: 1em;
+}
+#bill-detail-container .bill-timeline {
+  margin: 2.5em 0;
+}
+#bill-detail-container .bill-timeline p {
+  margin-bottom: .25em;
+  text-align: center;
+}
+#bill-detail-container .bill-timeline .timeline-days {
+  font-weight: bold;
+}
+#bill-detail-container .session-start,
+#bill-detail-container .session-end {
+  width: 10%;
+  float: left;
+  color: #C3C3C3;
+  line-height: 1.5em;
+  font-size: .75em;
+  vertical-align: middle;
+}
+#bill-detail-container .session-start span,
+#bill-detail-container .session-end span {
+  padding: 0 6px;
+}
+#bill-detail-container .session-start {
+  text-align: right;
+}
+#bill-detail-container .session-end  {
+  text-align: left;
+}
+#bill-detail-container .bill-timeline-container {
+  width: 80%;
+  float: left;
+  height: 1.5em;
+  background-color: #C3C3C3;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+#bill-detail-container .bill-timeline-interval {
+  width: 50px;
+  height: 1.5em;
+  margin-left: 20px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  background: #62619E;
+  background: rgba(98, 97, 158, 0.6);*/
+}
+#bill-category-container .category-image {
+  width: 30px;
+  max-width: 40px;
+  max-height: 70px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  margin-bottom: -5px;
+  margin-right: .25em;
+}
+
+.bs-icon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("https://s3.amazonaws.com/data.minnpost/js/bootstrap-2.0.3/img/glyphicons-halflings.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+  margin-right: 3px;
+  margin-top: 2px;
+  opacity: 0.8;
+}
+.bs-icon-white {
+  background-image: url("https://s3.amazonaws.com/data.minnpost/js/bootstrap-2.0.3/img/glyphicons-halflings-white.png");
+}
+.bs-icon-signed {
+  background-position: -288px 0;
+}
+.bs-icon-vetoed {
+  background-position: -312px 0;
+}
+.bs-icon-pending {
+  background-position: -433px -96px;
+}
+.bs-icon-circle-arrow-left {
+  background-position: -264px -144px;
+}
+
+.bill-status .bs-icon {
+  margin: 7px 0 0 5px;
+}
+
+.bill-categories {
+  margin-top: 2.5em;
+}
+.bill-categories ul {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+.bill-categories ul li {
+  list-style: none;
+  display: inline;
+  padding-right: .25em;
+}
+
+/**
+ * Search
+ */
+#address-chooser-form {
+  text-align: center;
+  padding: 7em 2em 5em 2em;
+}
+#address-chooser-form p {
+  font-size: 2em;
+  line-height: 1.5em;
+}
+#address-chooser-form label {
+  font-family: inherit;
+}
+#address-chooser-form .address-radio {
+  margin-left: .25em;
+}
+
+#address-chooser-form input.form-text {
+  width: 40%;
+  font-size: 1.5em;
+}
+#address-chooser-form input.showing-label {
+  color: #999999;
+  font-style: italic;
+}
+#address-chooser-form input.form-submit {
+  font-size: 1.5em;
+}
+#address-chooser-form .address-error {
+  padding: .5em 1em;
+  margin: 1em;
+  border: 2px solid #B61624;
+  color: #B61624;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
