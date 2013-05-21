@@ -7,16 +7,17 @@ Minnesota state legislative roundup.  The goal of this project is to create a vi
 
 ## Data
 
-* Vetoed bills are listed on the [Governer's site](http://mn.gov/governor/resources/legislation/).
+* Vetoed bills are listed on the [Governor's site](http://mn.gov/governor/resources/legislation/).
 * [Open States API](http://sunlightlabs.github.io/openstates-api/).
 
 ## Data Processing
 
- - build-bills-json.py loops through each bill in the list, using the OpenStates API to get information like bill title, sponsors and sponsor info, starting date, ending date, whether the bill was signed or vetoed, and the house votes for or against.
- - OpenStates unfortunately lacks data on Minnesota Senate votes, so build-bills-json pulls those from a scraper (https://scraperwiki.com/scrapers/mn_bills/)
- - All the data gets written to ```bills.json```
+* A [scraper](https://scraperwiki.com/scrapers/mn_governor_bills/) has been built to pull bills from the Governor page then get the votes from the MN Revisor site.
+
+## Install
+
+1. (optional) Make a virtualenv.
+1. Run: `pip install -r requirements.txt`
  
 ## Application
 
- - The application (found at ```vis/index.html```) runs from the produced ```bills.json```.  This data file is uploaded to S3 for the live application.  Change reference as needed.
- - Please update the Open States API key to your own.
