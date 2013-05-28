@@ -10,16 +10,16 @@ Minnesota state legislative roundup.  The goal of this project is to create a vi
 * Vetoed bills are listed on the [Governor's site](http://mn.gov/governor/resources/legislation/).
 * [Open States API](http://sunlightlabs.github.io/openstates-api/).
 
+## Install
+
+1. `bower install`
+1. `npm install`
+
 ## Data Processing
 
 * A [scraper](https://scraperwiki.com/scrapers/mn_governor_bills/) has been built to pull bills from the Governor page then get the votes from the MN Revisor site.
-
-## Install
-
-1. (optional) Make a virtualenv.
-1. `pip install -r requirements.txt`
-1. `bower install`
-1. `npm install`
+* Get the data with: `wget -O data/bills-list.json "https://api.scraperwiki.com/api/1.0/datastore/sqlite?format=json&name=mn_governor_bills&query=select+*+from+%60swdata%60&apikey="`
+* Process the data with: `node data-processing/build-bills-json.js`
  
 ## Application
 
