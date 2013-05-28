@@ -18,6 +18,7 @@
     "minnpost"
   ],
   "dependencies": {
+    "moment": "2.0.x"
   },
   "devDependencies": {
     "grunt": "0.4.x",
