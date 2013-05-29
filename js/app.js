@@ -2,11 +2,11 @@
   // Create basic models for bills and categories
   var Bill = Backbone.Model.extend({
     sessionBegin: function() {
-      return new Date(2012, 01 - 1, 24);
+      return app.options.sessionBegin;
     },
     
     sessionEnd: function() {
-      return new Date(2012, 05 - 1, 10);
+      return app.options.sessionEnd;
     },
     
     convertDate: function(string) {
