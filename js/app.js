@@ -29,6 +29,7 @@
     },
     
     getIntervalPercentage: function() {
+      var percentage;
       var days = 12 * 60 * 60 * 1000;
       var sessionBegin = this.sessionBegin();
       var sessionEnd = this.sessionEnd();
@@ -36,7 +37,13 @@
       var theseDays = (this.getDays() < 3) ? 3 : this.getDays();
       
       // Get percentage of length but don't go over 1.
-      return (theseDays > sessionLength) ? 1 : theseDays / sessionLength;
+      if (this.getStartPercentage() + (theseDays / sessionLength) >= 1) {
+        percentage = (1 - this.getStartPercentage());
+      }
+      else {
+        percentage = (theseDays > sessionLength) ? 1 : theseDays / sessionLength;
+      }
+      return percentage;
     },
     
     getStartPercentage: function() {

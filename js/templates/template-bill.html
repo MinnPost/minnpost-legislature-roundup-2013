@@ -15,14 +15,14 @@
         <p>This bill has been considered for at least <span class="timeline-days"><%= bill.getDays() %> days</span>.</p>
       <% } %>
       <div class="session-start">
-        <span>Jan 24</span>
+        <span>Jan <%= bill.sessionBegin().getDate() %></span>
       </div>
       <div class="bill-timeline-container">
         <div style="width: <%= bill.getIntervalPercentage() * 100 %>%; margin-left: <%= bill.getStartPercentage() * 100 %>%;" class="bill-timeline-interval">
         </div>
       </div>
       <div class="session-end">
-        <span>May 10</span>
+        <span>May <%= bill.sessionEnd().getDate() %></span>
       </div>
       <br class="clear" />
     </div>
