@@ -157,7 +157,7 @@ __p += '\n<div class="bill-details-wrapper">\n  <div class="bill-status">' +
  if (bill.get('title').slice(-1) !== '.') { ;
 __p += '.';
  } ;
-__p += '</span>\n    <br />\n    <em><a target="_blank" href="' +
+__p += '</span>\n    <br /><br />\n    <em><a target="_blank" href="' +
 ((__t = ( bill.get('billurl') )) == null ? '' : __t) +
 '">View bill status and details</a>, <a href="https://www.revisor.mn.gov/bills/status_description.php?f=' +
 ((__t = ( bill.get('bill').replace(' ', '') )) == null ? '' : __t) +
