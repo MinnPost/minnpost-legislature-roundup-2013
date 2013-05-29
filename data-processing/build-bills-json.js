@@ -302,6 +302,11 @@ function parseSourceBill(bill) {
   newBill.signed = bill.signed;
   newBill.categories = bill.topics.split('||');
   
+  newBill.notes = '';
+  if (bill.veto_link && bill.veto_link !== '') {
+    newBill.notes += 'Partially voted means that the Governor vetoed specific parts of the bill but signed the rest; <a href="' + bill.veto_link + '" taget="_blank">read more details</a>.  ';
+  }
+  
   return newBill;
 }
 

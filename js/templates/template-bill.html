@@ -2,7 +2,14 @@
 <div class="bill-details-wrapper">
   <div class="bill-status"><%= bill.get('bill_status') %> <i class="bs-icon bs-icon-<%= bill.get('bill_status') %>"></i></div>
   <h4 class="bill-title"><%= bill.get('bill') %></h4>
-  <p class="bill-description"><span class="bill-title"><%= bill.get('title') %></span> [<a target="_blank" href="<%= bill.get('billurl') %>">view bill status and details</a>]</p>
+  <p class="bill-description">
+    <span class="bill-title"><%= bill.get('title') %><% if (bill.get('title').slice(-1) !== '.') { %>.<% } %></span>
+    <br />
+    <em><a target="_blank" href="<%= bill.get('billurl') %>">View bill status and details.</a></em>
+    <% if (bill.get('notes')) { %>
+      <em><span class="bill-notes"><%= bill.get('notes') %></span></em>
+    <% } %>
+  </p>
   
   
   <% if (typeof bill.get('start_date') != 'undefined' && (bill.getDays() != NaN || bill.getDays() != 'NaN')) { %>
