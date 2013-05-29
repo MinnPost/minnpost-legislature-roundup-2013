@@ -30,7 +30,7 @@
   <!-- Used to help better standardize styles in MinnPost site -->
   <div class="node-body fieldlayout node-field-body">
     <style type="text/css">
-      @import url('./dist/minnpost-legislature-roundup-2013.libs.css');
+      @import url('https://s3.amazonaws.com/data.minnpost/projects/minnpost-legislature-roundup-2013/minnpost-legislature-roundup-2013.libs.css');
     </style>
     
     <!-- Example specific CSS -->
@@ -57,11 +57,11 @@
 
     <!-- Application CSS -->
     <style type="text/css">
-      @import url('./dist/minnpost-legislature-roundup-2013.latest.css');
+      @import url('https://s3.amazonaws.com/data.minnpost/projects/minnpost-legislature-roundup-2013/minnpost-legislature-roundup-2013.latest.css');
     </style>
     <!--[if lte IE 8]>
       <style type="text/css">
-        @import url('./dist/minnpost-legislature-roundup-2013.latest.ie.css');
+        @import url('https://s3.amazonaws.com/data.minnpost/projects/minnpost-legislature-roundup-2013/minnpost-legislature-roundup-2013.latest.ie.css');
       </style>
     <![endif]-->
     
@@ -134,15 +134,15 @@
     </script>
     
     <!-- Application libraries and JS -->
-    <script type="text/javascript" src="./dist/minnpost-legislature-roundup-2013.libs.js"></script>
+    <script type="text/javascript" src="https://s3.amazonaws.com/data.minnpost/projects/minnpost-legislature-roundup-2013/minnpost-legislature-roundup-2013.libs.js"></script>
 
-    <script type="text/javascript" src="./dist/minnpost-legislature-roundup-2013.latest.min.js"></script>
+    <script type="text/javascript" src="https://s3.amazonaws.com/data.minnpost/projects/minnpost-legislature-roundup-2013/minnpost-legislature-roundup-2013.latest.min.js"></script>
     
     <script type="text/javascript">
       (function(app, $, undefined) {
         $(document).ready(function() {
           app.options = _.extend(app.defaultOptions, {
-            dataPath: './dist/',
+            dataPath: 'https://s3.amazonaws.com/data.minnpost/projects/minnpost-legislature-roundup-2013/',
             el: '#minnpost-legislature-wrapper',
             sessionBegin: new Date(2013, 01 - 1, 24),
             sessionEnd: new Date(2013, 05 - 1, 27)
