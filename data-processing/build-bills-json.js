@@ -6,6 +6,7 @@ var http = require('http');
 var fs = require('fs');
 var path = require('path');
 var moment = require('moment');
+var q = require('q');
 var RestClient = require('node-rest-client').Client;
 var restClient = new RestClient();
 
@@ -15,6 +16,7 @@ var outputFile = path.join(__dirname, '../data/bills.json');
 // Please don't steal
 var OSAPIKey = '1e1c9b31bf15440aacafe4125f221bf2';
 var billLookupURL = 'http://openstates.org/api/v1/bills/MN/2013-2014/[[[BILL_ID]]]/?apikey=' + OSAPIKey;
+var legislatorLookupURL = 'http://openstates.org/api/v1/legislators/[[[LEG_ID]]]/?apikey=' + OSAPIKey;
 
 // Map categories
 var subjectMap = {
@@ -68,6 +70,21 @@ var subjectMap = {
 // Get data
 var sourceData = require(sourceFile);
 
+// Make defer
+function makeDeferHTTPRequest(url) {
+  var d = q.defer();
+  
+  restClient.get(url, function(data, response) {
+    if (response.statusCode != 200) {
+      console.log('Error on OS call: ' + response.statusCode + ' : ' + url);
+      return;
+    }
+    d.resolve(JSON.parse(data), response);
+  });
+  
+  return d.promise;
+}
+
 // Parse source bill
 function parseSourceBill(bill) {
   var newBill = {};
@@ -98,39 +115,34 @@ function parseSourceBill(bill) {
 }
 
 // Handle finish
-function finishProcess(source, output) {
-  // Hackish way to know if we are done
-  if (source.length === Object.keys(output).length) {
-    outputString = JSON.stringify(output);
-    fs.writeFile(outputFile, JSON.stringify(output), function(error) {
-      if (error) {
-        console.log('Error saving output file: ' + error);
-      }
-      else {
-        console.log('Output saved with rows: ' + Object.keys(output).length);
-      }
-    });
-  }
+function finishProcess(output) {
+  // Silly, but given the defers, we just write out the
+  // file every time.
+  fs.writeFile(outputFile, JSON.stringify(output), function(error) {
+    if (error) {
+      console.log('Error saving output file: ' + error);
+    }
+    else {
+      console.log('Output saved with rows: ' + Object.keys(output).length);
+    }
+  });
 }
 
 // Process data
 (function processData(sourceData) {
   var billsOutput = {};
+  var knownLegislators = {};
 
   sourceData.forEach(function(bill, i) {
     var bill_id = bill.bill;
     var url = billLookupURL.replace('[[[BILL_ID]]]', encodeURIComponent(bill_id));
     
-    restClient.get(url, function(data, response) {
-      billsOutput[bill_id] = parseSourceBill(bill);
-    
-      if (response.statusCode != 200) {
-        console.log('Error on OS call for ' + bill_id + ': ' + response.statusCode + ' : ' + url);
-        return;
-      }
-      data = JSON.parse(data);
+    makeDeferHTTPRequest(url).done(function(data, response) {
+      var defers = [];
       
       try {
+        billsOutput[bill_id] = parseSourceBill(bill);
+        
         // Basics
         billsOutput[bill_id].title = data.title;
         billsOutput[bill_id].billurl = data.sources[0].url;
@@ -173,14 +185,42 @@ function finishProcess(source, output) {
           billsOutput[bill_id].bill_status = 'partially vetoed';
         }
         
-        //senate_sponsors
+        // Sponsors
         billsOutput[bill_id].senate_sponsors = [];
-        
-        // house_sponsors
         billsOutput[bill_id].house_sponsors = [];
         
-        // Finish
-        finishProcess(sourceData, billsOutput);
+        data.sponsors.forEach(function(s) {
+          if (s.chamber === 'upper' && knownLegislators[s.leg_id]) {
+            billsOutput[bill_id].senate_sponsors.push(knownLegislators[s.leg_id]);
+          }
+          else if (s.chamber === 'lower' && knownLegislators[s.leg_id]) {
+            billsOutput[bill_id].house_sponsors.push(knownLegislators[s.leg_id]);
+          }
+          else {
+            defers.push(makeDeferHTTPRequest(legislatorLookupURL.replace('[[[LEG_ID]]]', s.leg_id)));
+          }
+        });
+        
+        q.all(defers).done(function(foundLegs) {
+          foundLegs.forEach(function(l) {
+            var legDetails = [];
+            legDetails.push(l.full_name);
+            legDetails.push(l.party);
+            legDetails.push(l.photo_url);
+            legDetails.push(l.url);
+            knownLegislators[l.id] = legDetails;
+            
+            if (l.chamber === 'upper') {
+              billsOutput[bill_id].senate_sponsors.push(legDetails);
+            }
+            else {
+              billsOutput[bill_id].house_sponsors.push(legDetails);
+            }
+          });
+        
+          // Finish
+          finishProcess(billsOutput);
+        });
       }
       catch (e) {
         console.log(e);

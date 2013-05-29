@@ -19,7 +19,8 @@
   ],
   "dependencies": {
     "moment": "2.0.x",
-    "node-rest-client": "0.1.x"
+    "node-rest-client": "0.1.x",
+    "q": "0.9.x"
   },
   "devDependencies": {
     "grunt": "0.4.x",
