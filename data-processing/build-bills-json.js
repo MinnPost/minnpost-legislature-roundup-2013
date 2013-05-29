@@ -19,6 +19,7 @@ var billLookupURL = 'http://openstates.org/api/v1/bills/MN/2013-2014/[[[BILL_ID]
 var legislatorLookupURL = 'http://openstates.org/api/v1/legislators/[[[LEG_ID]]]/?apikey=' + OSAPIKey;
 
 // Map categories
+/*
 var subjectMap = {
   'Agriculture and Food': 'Agriculture and Food',
   'Animal Rights and Wildlife Issues': 'Environment and Recreation',
@@ -66,6 +67,195 @@ var subjectMap = {
   'Transportation': 'Transportation',
   'Welfare and Poverty': 'Welfare and Poverty' 
 };
+*/
+var subjectMap = {
+  'Administration Department': 'Government',
+  'Agriculture and Agriculture Department': 'Agriculture and Food',
+  'Alcoholic Beverages': 'Health and Science',
+  'Animals and Pets': 'Environment and Recreation',
+  'Appropriations': 'Budget, Spending and Taxes',
+  'Appropriations-Omnibus Bills': 'Budget, Spending and Taxes',
+  'Arts': 'Arts and Humanities',
+  'Banks and Financial Institutions': '',
+  'Banks, Financial Institutions, and Credit Unions': '',
+  'Bicycles and Bikeways': 'Transportation',
+  'Boards': '',
+  'Boats, Boating, and Watercraft': 'Transportation',
+  'Bonds': 'Budget, Spending and Taxes',
+  'Builders and Building Contractors': '',
+  'Buildings and Building Codes': '',
+  'Business': 'Business and Economy',
+  'Chemical Dependency': 'Crime and Drugs',
+  'Children and Families': 'Social Issues',
+  'Children and Minors': 'Social Issues',
+  'Children-Child Care and Facilities': 'Social Issues',
+  'Children-Custody and Support': 'Social Issues',
+  'Cities and Towns': 'Government',
+  'Cities and Towns-Specific': 'Government',
+  'Claims': 'Legal',
+  'Commerce Department': 'Business and Economy',
+  'Commerce and Commerce Department': 'Business and Economy',
+  'Commissions': 'Government',
+  'Committees and Working Groups': 'Government',
+  'Constitutional Amendments': 'Government',
+  'Constitutional Offices': 'Government',
+  'Consumer Protection': 'Business and Economy',
+  'Contracts': 'Legal',
+  'Cooperatives': 'Business and Economy',
+  'Corrections and Corrections Department': 'Crime and Drugs',
+  'Corrections-Juveniles': 'Crime and Drugs',
+  'Councils': 'Government',
+  'Counties': 'Government',
+  'Counties-Specific': 'Government',
+  'Courts': 'Legal',
+  'Courts-Specific': '',
+  'Credit and Credit Services': 'Business and Economy',
+  'Crime Victims': 'Crime and Drugs',
+  'Crimes and Criminals': 'Crime and Drugs',
+  'Crimes and Criminals-Sexual Offenses': 'Crime and Drugs',
+  'Crimes and Criminals-Victims': 'Crime and Drugs',
+  'Data Practices and Privacy': '',
+  'Death': 'Social Issues',
+  'Death, Funerals, and Cemeteries': 'Social Issues',
+  'Disabilities and Access': 'Health and Science',
+  'Disasters': 'Environment and Recreation',
+  'Drivers\' Licenses, Training, and ID Cards': 'Government',
+  'Drugs and Medicine': 'Health and Science',
+  'Easements and Conveyances': 'Housing and Property',
+  'Economic Development': 'Business and Economy',
+  'Education and Education Department': 'Education',
+  'Education-Higher': 'Education',
+  'Education-K-12': 'Education',
+  'Education-Pre-Kindergarten-12': 'Education',
+  'Education-School Districts': 'Education',
+  'Elections': 'Campaign Finance and Election Issues',
+  'Emergency and 911 Services': '',
+  'Employee Relations Department': '',
+  'Employment and Economic Development Department': 'Business and Economy',
+  'Energy': 'Energy and Technology',
+  'Environment': 'Environment and Recreation',
+  'Ethics': '',
+  'Family': 'Social Issues',
+  'Fire and Firefighters': '',
+  'Firearms and Dangerous Weapons': 'Guns',
+  'Fish and Fishing': 'Environment and Recreation',
+  'Forests and Trees': 'Environment and Recreation',
+  'Fuels': 'Energy and Technology',
+  'Funerals and Cemeteries': 'Social Issues',
+  'Gambling': 'Gambling and Gaming',
+  'Gambling and Lottery': 'Gambling and Gaming',
+  'Government-Employees': 'Government',
+  'Government-Federal': 'Government',
+  'Government-Local': 'Government',
+  'Government-State': 'Government',
+  'Governmental Operations-Federal': 'Government',
+  'Governmental Operations-Local': 'Government',
+  'Governmental Operations-State': 'Government',
+  'Guardians and Conservators': 'Social Issues',
+  'Hazardous Substances': 'Environment and Recreation',
+  'Health and Health Department': 'Health and Science',
+  'Health-Mental Health': 'Health and Science',
+  'Highways, Roads, and Bridges': 'Transporation',
+  'Historic Sites and Historical Societies': '',
+  'Hospitals and Health Care Facilities': 'Health and Science',
+  'Hospitals and Health Facilities': 'Health and Science',
+  'Housing and Housing Finance Agency': 'Housing and Property',
+  'Human Rights and Human Rights Department': 'Social Issues',
+  'Human Services and Human Services Department': '',
+  'Hunting and Game': 'Environment and Recreation',
+  'Immigrants and Aliens': 'Immigration',
+  'Insurance': 'Insurance',
+  'Insurance-Health': 'Insurance',
+  'Insurance-Property and Casualty': 'Insurance',
+  'International Relations': '',
+  'Interstate Compacts and Agreements': '',
+  'Judges': 'Legal',
+  'Labor, Employment, and Labor and Industry Department': 'Business and Economy',
+  'Lakes, Ponds, Rivers, and Streams': 'Environment and Recreation',
+  'Landlords and Tenants': 'Housing and Property',
+  'Lands': 'Housing and Property',
+  'Lands-State': 'Housing and Property',
+  'Law Enforcement': 'Crime and Drugs',
+  'Legal Proceedings': 'Legal',
+  'Legislature': 'Government',
+  'Liability': 'Legal',
+  'Licenses': '',
+  'Liquor': 'Social Issues',
+  'Marriage and Marriage Dissolution': 'Social Issues',
+  'Metropolitan Area': '',
+  'Military and Military Affairs Department': '',
+  'Mines and Mining': 'Environment and Recreation',
+  'Minnesota Management and Budget Department': '',
+  'Minnesota State Colleges and Universities': 'Education',
+  'Minorities and Protected Groups': '',
+  'Mortgages and Deeds': 'Housing and Property',
+  'Motor Vehicles': 'Transporation',
+  'Motor Vehicles-Carriers': 'Transporation',
+  'Motor Vehicles-Motorcycles, Snowmobiles, and ATVs': 'Transporation',
+  'Motor Vehicles-Registration, Licensing, and Taxation': 'Transporation',
+  'Motorcycles, Snowmobiles, and ATVs': 'Transporation',
+  'Museums and Theaters': 'Arts and Humanities',
+  'Native Americans': 'Social Issues',
+  'Natural Resources Department': 'Environment and Recreation',
+  'Natural Resources and Natural Resources Department': 'Environment and Recreation',
+  'Nonprofit and Charitable Organizations': '',
+  'Nursing Homes and Care Facilities': 'Health and Science',
+  'Occupations and Professions': '',
+  'Omnibus Bills': 'Budget, Spending and Taxes',
+  'Parks and Trails': 'Environment and Recreation',
+  'Pets': '',
+  'Plants, Seeds, and Nurseries': 'Environment and Recreation',
+  'Police and Peace Officers': 'Crime and Drugs',
+  'Pollution and Pollution Control Agency': 'Environment and Recreation',
+  'Popular Names': '',
+  'Public Safety Department': 'Crime and Drugs',
+  'Public Utilities and Public Utilities Commission': '',
+  'Public and State Employees': 'Government',
+  'Railroads': 'Transportation',
+  'Real Estate': 'Housing and Property',
+  'Reapportionment and Redistricting': '',
+  'Religion and Religious Beliefs': 'Social Issues',
+  'Resolutions': '',
+  'Retirement': 'Social Issues',
+  'Retirement-Public and State Employees': 'Government',
+  'Safety': 'Crime and Drugs',
+  'Securities': '',
+  'Sewers and Septic Systems': '',
+  'State Agencies and Departments': 'Government',
+  'State Boards': 'Government',
+  'State Councils and Commissions': 'Government',
+  'State Officials': 'Government',
+  'Statutes': 'Government',
+  'Students': 'Education',
+  'Taxation': 'Budget, Spending and Taxes',
+  'Taxation-Income': 'Budget, Spending and Taxes',
+  'Taxation-Property': 'Budget, Spending and Taxes',
+  'Taxation-Sales and Use': 'Budget, Spending and Taxes',
+  'Teachers': 'Education',
+  'Telecommunications and Information Technology': 'Energy and Technology',
+  'Television and Radio': '',
+  'Tobacco Products': 'Social Issues',
+  'Trade Practices': 'Business and Economy',
+  'Traffic Regulations': 'Transportation',
+  'Transportation and Transportation Department': 'Transportation',
+  'Trusts': '',
+  'Unemployment Insurance': 'Insurance',
+  'Uniform Acts': '',
+  'Uniform Commercial Code': '',
+  'University of Minnesota': 'Education',
+  'Veterans and Veterans Affairs Department': '',
+  'Wages': 'Business and Economy',
+  'Waste and Waste Management': '',
+  'Water, Water Resources, and Waterways': '',
+  'Waters-Lakes': 'Environment and Recreation',
+  'Waters-Rivers': 'Environment and Recreation',
+  'Watershed Districts': 'Environment and Recreation',
+  'Weights and Measures': '',
+  'Women': 'Social Issues',
+  'Workers Compensation': 'Business and Economy',
+  'Zoos': '',
+}
+
 
 // Get data
 var sourceData = require(sourceFile);
@@ -110,6 +300,7 @@ function parseSourceBill(bill) {
   newBill.vetoed = (bill.vetoed && bill.vetoed !== '0') ? true : false;
   newBill.veto_link = bill.veto_link;
   newBill.signed = bill.signed;
+  newBill.categories = bill.topics.split('||');
   
   return newBill;
 }
@@ -135,6 +326,7 @@ function finishProcess(output) {
 
   sourceData.forEach(function(bill, i) {
     var bill_id = bill.bill;
+    var newCategories = [];
     var url = billLookupURL.replace('[[[BILL_ID]]]', encodeURIComponent(bill_id));
     
     makeDeferHTTPRequest(url).done(function(data, response) {
@@ -159,12 +351,17 @@ function finishProcess(output) {
         });
         
         // Categories
+        
         billsOutput[bill_id].categories = billsOutput[bill_id].categories || [];
-        billsOutput[bill_id].categories.push('Transportation');
-        data.subjects.forEach(function(s) {
-          billsOutput[bill_id].categories = billsOutput[bill_id].categories || [];
-          billsOutput[bill_id].categories.push((subjectMap[s]) ? subjectMap[s] : '');
+        billsOutput[bill_id].categories.forEach(function(c) {
+          if (subjectMap[c] !== undefined && subjectMap[c] !== '' && newCategories.indexOf(subjectMap[c]) === -1) {
+            newCategories.push(subjectMap[c]);
+          }
+          else if (subjectMap[c] === undefined && c !== '' && newCategories.indexOf(c) === -1) {
+            newCategories.push(c);
+          }
         });
+        billsOutput[bill_id].categories = newCategories;
         
         // Status
         billsOutput[bill_id].bill_status = 'indeterminate';

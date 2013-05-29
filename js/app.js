@@ -651,6 +651,7 @@
   
   app.start = function(data) {
     app.getData('data/bills').done(function(data) {
+      app.data.bills = data;
       billsProcess(data);
     });
   };
