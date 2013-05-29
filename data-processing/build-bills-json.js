@@ -155,7 +155,7 @@ var subjectMap = {
   'Hazardous Substances': 'Environment and Recreation',
   'Health and Health Department': 'Health and Science',
   'Health-Mental Health': 'Health and Science',
-  'Highways, Roads, and Bridges': 'Transporation',
+  'Highways, Roads, and Bridges': 'Transportation',
   'Historic Sites and Historical Societies': '',
   'Hospitals and Health Care Facilities': 'Health and Science',
   'Hospitals and Health Facilities': 'Health and Science',
@@ -189,11 +189,11 @@ var subjectMap = {
   'Minnesota State Colleges and Universities': 'Education',
   'Minorities and Protected Groups': '',
   'Mortgages and Deeds': 'Housing and Property',
-  'Motor Vehicles': 'Transporation',
-  'Motor Vehicles-Carriers': 'Transporation',
-  'Motor Vehicles-Motorcycles, Snowmobiles, and ATVs': 'Transporation',
-  'Motor Vehicles-Registration, Licensing, and Taxation': 'Transporation',
-  'Motorcycles, Snowmobiles, and ATVs': 'Transporation',
+  'Motor Vehicles': 'Transportation',
+  'Motor Vehicles-Carriers': 'Transportation',
+  'Motor Vehicles-Motorcycles, Snowmobiles, and ATVs': 'Transportation',
+  'Motor Vehicles-Registration, Licensing, and Taxation': 'Transportation',
+  'Motorcycles, Snowmobiles, and ATVs': 'Transportation',
   'Museums and Theaters': 'Arts and Humanities',
   'Native Americans': 'Social Issues',
   'Natural Resources Department': 'Environment and Recreation',
@@ -254,7 +254,7 @@ var subjectMap = {
   'Women': 'Social Issues',
   'Workers Compensation': 'Business and Economy',
   'Zoos': '',
-}
+};
 
 
 // Get data
