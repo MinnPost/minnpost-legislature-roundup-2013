@@ -1,0 +1,10 @@
+#bill-detail-container .bill-timeline-container {
+  width: 78%;
+}
+#bills-list-container ul .bs-icon {
+  display: inline;
+  float: left;
+}
+.bill-categories {
+  padding-top: 2em;
+}
