@@ -5,7 +5,7 @@
   <p class="bill-description">
     <span class="bill-title"><%= bill.get('title') %><% if (bill.get('title').slice(-1) !== '.') { %>.<% } %></span>
     <br /><br />
-    <em><a target="_blank" href="<%= bill.get('billurl') %>">View bill status and details</a>, <a href="https://www.revisor.mn.gov/bills/status_description.php?f=<%= bill.get('bill').replace(' ', '') %>&ssn=0&y=2013" target="_blank">full description</a>, and <a href="https://www.revisor.mn.gov/bills/text.php?number=<%= bill.get('bill').replace(' ', '') %>&session=ls88&session_year=2013&session_number=0" target="_blank">current engrossment</a>.</em>
+    <em><a target="_blank" href="<%= bill.get('billurl') %>">View bill status and details</a>, <a href="https://www.revisor.mn.gov/bills/status_description.php?f=<%= bill.get('bill').replace(' ', '') %>&ssn=0&y=2013" target="_blank">full description</a>, and <a href="https://www.revisor.mn.gov/bills/text.php?number=<%= bill.get('bill').replace(' ', '') %>&session=ls88&session_year=2013&session_number=0" target="_blank">current version</a>.</em>
     <% if (bill.get('notes')) { %>
       <em><span class="bill-notes"><%= bill.get('notes') %></span></em>
     <% } %>
