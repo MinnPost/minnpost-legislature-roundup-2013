@@ -122,7 +122,7 @@
         </div>
       </div>
   
-      <p class="footnote">Data from the <a target="_blank" href="http://www.leg.state.mn.us/">Minnesota Legislature</a> via the <a target="_blank" href="http://openstates.org/">Open States Project</a>.  Geocoding provided by <a target="_blank" href="https://www.mapquest.com/">Mapquest</a>.  Note that some legislators are not properly linked to bills they sponsor, which may affect the accuracy of the address search.  All icons from <a target="_blank" href="http://thenounproject.com/">The Noun Project</a>: Capital by Jonathan Keating; Wind Farm by Iconathon, Cree; House by Maurizio Pedrazzoli; Checkbox by The Noun Project; Tree by The Noun Project; Microscope by Stuart McCoy; Soldier by Simon Child; Piggy Bank by Brock Kenzler; Stock Exchange by Nacho; Theater by Karl Turner; Playing Cards by Jonathan C. Dietrich; Siren by ___Lo; Gavel by Connie Shu.</p>
+      <p class="footnote">Data from the <a target="_blank" href="http://www.leg.state.mn.us/">Minnesota Legislature</a> either directly or via the <a target="_blank" href="http://openstates.org/">Open States Project</a>.  Geocoding provided by <a target="_blank" href="https://www.mapquest.com/">Mapquest</a>.  Note that some legislators are not properly linked to bills they sponsor, which may affect the accuracy of the address search, and categories are aggregated directly from the categories that the Minnesota Legislature uses.  <br /><br /> All icons from <a target="_blank" href="http://thenounproject.com/">The Noun Project</a>: Capital by Jonathan Keating; Wind Farm by Iconathon, Cree; House by Maurizio Pedrazzoli; Checkbox by The Noun Project; Tree by The Noun Project; Microscope by Stuart McCoy; Soldier by Simon Child; Piggy Bank by Brock Kenzler; Stock Exchange by Nacho; Theater by Karl Turner; Playing Cards by Jonathan C. Dietrich; Siren by ___Lo; Gavel by Connie Shu.</p>
     </div>
         
     <script type="text/javascript">
@@ -144,8 +144,8 @@
           app.options = _.extend(app.defaultOptions, {
             dataPath: 'https://s3.amazonaws.com/data.minnpost/projects/minnpost-legislature-roundup-2013/',
             el: '#minnpost-legislature-wrapper',
-            sessionBegin: new Date(2013, 01 - 1, 24),
-            sessionEnd: new Date(2013, 05 - 1, 27)
+            sessionBegin: new Date(2013, 01 - 1, 8),
+            sessionEnd: new Date(2013, 05 - 1, 20)
           });
           app.start();
         });
