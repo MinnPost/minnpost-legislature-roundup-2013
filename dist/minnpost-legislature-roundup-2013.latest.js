@@ -163,7 +163,7 @@ __p += '</span>\n    <br /><br />\n    <em><a target="_blank" href="' +
 ((__t = ( bill.get('bill').replace(' ', '') )) == null ? '' : __t) +
 '&ssn=0&y=2013" target="_blank">full description</a>, and <a href="https://www.revisor.mn.gov/bills/text.php?number=' +
 ((__t = ( bill.get('bill').replace(' ', '') )) == null ? '' : __t) +
-'&session=ls88&session_year=2013&session_number=0" target="_blank">current engrossment</a>.</em>\n    ';
+'&session=ls88&session_year=2013&session_number=0" target="_blank">current version</a>.</em>\n    ';
  if (bill.get('notes')) { ;
 __p += '\n      <em><span class="bill-notes">' +
 ((__t = ( bill.get('notes') )) == null ? '' : __t) +
