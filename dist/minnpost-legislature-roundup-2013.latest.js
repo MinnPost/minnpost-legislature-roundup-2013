@@ -152,11 +152,20 @@ __p += '\n<div class="bill-details-wrapper">\n  <div class="bill-status">' +
 ((__t = ( bill.get('bill_status') )) == null ? '' : __t) +
 '"></i></div>\n  <h4 class="bill-title">' +
 ((__t = ( bill.get('bill') )) == null ? '' : __t) +
-'</h4>\n  <p class="bill-description"><span class="bill-title">' +
-((__t = ( bill.get('title') )) == null ? '' : __t) +
-'</span> [<a target="_blank" href="' +
+'</h4>\n  <p class="bill-description">\n    <span class="bill-title">' +
+((__t = ( bill.get('title') )) == null ? '' : __t);
+ if (bill.get('title').slice(-1) !== '.') { ;
+__p += '.';
+ } ;
+__p += '</span>\n    <br />\n    <em><a target="_blank" href="' +
 ((__t = ( bill.get('billurl') )) == null ? '' : __t) +
-'">view bill status and details</a>]</p>\n  \n  \n  ';
+'">View bill status and details.</a></em>\n    ';
+ if (bill.get('notes')) { ;
+__p += '\n      <em><span class="bill-notes">' +
+((__t = ( bill.get('notes') )) == null ? '' : __t) +
+'</span></em>\n    ';
+ } ;
+__p += '\n  </p>\n  \n  \n  ';
  if (typeof bill.get('start_date') != 'undefined' && (bill.getDays() != NaN || bill.getDays() != 'NaN')) { ;
 __p += '\n    <div class="bill-timeline">\n      ';
  if (bill.get('bill_status') == 'signed') { ;
@@ -172,11 +181,15 @@ __p += '\n        <p>This bill has been considered for at least <span class="tim
 ((__t = ( bill.getDays() )) == null ? '' : __t) +
 ' days</span>.</p>\n      ';
  } ;
-__p += '\n      <div class="session-start">\n        <span>Jan 24</span>\n      </div>\n      <div class="bill-timeline-container">\n        <div style="width: ' +
+__p += '\n      <div class="session-start">\n        <span>Jan ' +
+((__t = ( bill.sessionBegin().getDate() )) == null ? '' : __t) +
+'</span>\n      </div>\n      <div class="bill-timeline-container">\n        <div style="width: ' +
 ((__t = ( bill.getIntervalPercentage() * 100 )) == null ? '' : __t) +
 '%; margin-left: ' +
 ((__t = ( bill.getStartPercentage() * 100 )) == null ? '' : __t) +
-'%;" class="bill-timeline-interval">\n        </div>\n      </div>\n      <div class="session-end">\n        <span>May 10</span>\n      </div>\n      <br class="clear" />\n    </div>\n  ';
+'%;" class="bill-timeline-interval">\n        </div>\n      </div>\n      <div class="session-end">\n        <span>May ' +
+((__t = ( bill.sessionEnd().getDate() )) == null ? '' : __t) +
+'</span>\n      </div>\n      <br class="clear" />\n    </div>\n  ';
  } ;
 __p += '\n  \n  \n  <div class="bill-house">\n    ';
  if (typeof bill.get('house_ayes') != 'undefined') { ;
@@ -344,6 +357,7 @@ return __p
     },
     
     getIntervalPercentage: function() {
+      var percentage;
       var days = 12 * 60 * 60 * 1000;
       var sessionBegin = this.sessionBegin();
       var sessionEnd = this.sessionEnd();
@@ -351,7 +365,13 @@ return __p
       var theseDays = (this.getDays() < 3) ? 3 : this.getDays();
       
       // Get percentage of length but don't go over 1.
-      return (theseDays > sessionLength) ? 1 : theseDays / sessionLength;
+      if (this.getStartPercentage() + (theseDays / sessionLength) >= 1) {
+        percentage = (1 - this.getStartPercentage());
+      }
+      else {
+        percentage = (theseDays > sessionLength) ? 1 : theseDays / sessionLength;
+      }
+      return percentage;
     },
     
     getStartPercentage: function() {
@@ -538,6 +558,7 @@ return __p
     showByAddress: function(e) {
       e.preventDefault();
       var thisList = this;
+      var geocodeURL;
       var thisElem = $(e.currentTarget);
       var type = $('input:radio[name="author_type"]:checked').val();
       var address = $('input#address-chooser-address').val();
@@ -548,22 +569,30 @@ return __p
       
       // Geocode address using Mapquest becuase its terms of service are more open,
       // though its geocoding is not the best.
-      $.getJSON('http://open.mapquestapi.com/nominatim/v1/search?format=json&json_callback=?&countrycodes=us&limit=1&q=' + encodeURI(address), function(value) {
-        // Use first response
-        value = value[0];
+      geocodeURL = 'http://www.mapquestapi.com/geocoding/v1/address?key=' + 
+        app.options.mapQuestKey + 
+        '&outFormat=json&callback=?&countrycodes=us&maxResults=1&location=' + 
+        encodeURI(address);
+      $.getJSON(geocodeURL, function(response) {
+        var value;
         
-        // Check response
-        if (value === undefined) {
-          thisList.showError('We were unable turn your search terms, ' + address + ', into a geographical location.  Please be more specific, such as including ZIP code.');
+        // Use first response
+        try {
+          value = response.results[0].locations[0].latLng;
         }
+        catch (e) {
+          thisList.showError('We were unable turn your search terms, ' + address + ', into a geographical location.  Please be more specific, such as including ZIP code.');
+          return;
+        }
+        
         // Check we are still mostly in Minnesota
-        else if (value.lat < mnBounds[0] || value.lat > mnBounds[2] || value.lon < mnBounds[1] || value.lon > mnBounds[3]) {
+        if (value.lat < mnBounds[0] || value.lat > mnBounds[2] || value.lng < mnBounds[1] || value.lng > mnBounds[3]) {
           thisList.showError('Sorry, but what you are looking for is outside of Minnesota.');
         }
         else {
           // Send to Open States service
           var APIKEY = '49c5c72c157d4b37892ddb52c63d06be';
-          var request = 'http://openstates.org/api/v1/legislators/geo/?long=' + encodeURI(value.lon) + '&lat=' + encodeURI(value.lat) + '&apikey=' + encodeURI(APIKEY) + '&callback=?';
+          var request = 'http://openstates.org/api/v1/legislators/geo/?long=' + encodeURI(value.lng) + '&lat=' + encodeURI(value.lat) + '&apikey=' + encodeURI(APIKEY) + '&callback=?';
           $.getJSON(request, function(data) {
             var d;
             var names = [];
@@ -918,7 +947,7 @@ return __p
     visCategories(categories, billList);
 
     // Navigation and interface
-    $('.all-categories').on('click', app.options.el, function(e) {
+    $(app.options.el).on('click', '.all-categories', function(e) {
       e.preventDefault();
       if ($('.by-category').hasClass('tab-active')) {
         $('#bubble-chooser').slideDown('fast');
@@ -966,6 +995,7 @@ return __p
   
   app.start = function(data) {
     app.getData('data/bills').done(function(data) {
+      app.data.bills = data;
       billsProcess(data);
     });
   };
