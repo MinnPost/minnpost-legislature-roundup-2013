@@ -230,6 +230,7 @@
     showByAddress: function(e) {
       e.preventDefault();
       var thisList = this;
+      var geocodeURL;
       var thisElem = $(e.currentTarget);
       var type = $('input:radio[name="author_type"]:checked').val();
       var address = $('input#address-chooser-address').val();
@@ -240,22 +241,30 @@
       
       // Geocode address using Mapquest becuase its terms of service are more open,
       // though its geocoding is not the best.
-      $.getJSON('http://open.mapquestapi.com/nominatim/v1/search?format=json&json_callback=?&countrycodes=us&limit=1&q=' + encodeURI(address), function(value) {
-        // Use first response
-        value = value[0];
+      geocodeURL = 'http://www.mapquestapi.com/geocoding/v1/address?key=' + 
+        app.options.mapQuestKey + 
+        '&outFormat=json&callback=?&countrycodes=us&maxResults=1&location=' + 
+        encodeURI(address);
+      $.getJSON(geocodeURL, function(response) {
+        var value;
         
-        // Check response
-        if (value === undefined) {
-          thisList.showError('We were unable turn your search terms, ' + address + ', into a geographical location.  Please be more specific, such as including ZIP code.');
+        // Use first response
+        try {
+          value = response.results[0].locations[0].latLng;
         }
+        catch (e) {
+          thisList.showError('We were unable turn your search terms, ' + address + ', into a geographical location.  Please be more specific, such as including ZIP code.');
+          return;
+        }
+        
         // Check we are still mostly in Minnesota
-        else if (value.lat < mnBounds[0] || value.lat > mnBounds[2] || value.lon < mnBounds[1] || value.lon > mnBounds[3]) {
+        if (value.lat < mnBounds[0] || value.lat > mnBounds[2] || value.lng < mnBounds[1] || value.lng > mnBounds[3]) {
           thisList.showError('Sorry, but what you are looking for is outside of Minnesota.');
         }
         else {
           // Send to Open States service
           var APIKEY = '49c5c72c157d4b37892ddb52c63d06be';
-          var request = 'http://openstates.org/api/v1/legislators/geo/?long=' + encodeURI(value.lon) + '&lat=' + encodeURI(value.lat) + '&apikey=' + encodeURI(APIKEY) + '&callback=?';
+          var request = 'http://openstates.org/api/v1/legislators/geo/?long=' + encodeURI(value.lng) + '&lat=' + encodeURI(value.lat) + '&apikey=' + encodeURI(APIKEY) + '&callback=?';
           $.getJSON(request, function(data) {
             var d;
             var names = [];
