@@ -343,7 +343,7 @@
         'Controversial': 'noun_project_1635',
         'Legal': 'noun_project_1004',
         'Transportation': 'noun_project_97'
-      }
+      };
       
       if (typeof icons[cat] != 'undefined') {
         return icons[cat];
@@ -391,7 +391,7 @@
       else {
         return b.bills.length - a.bills.length;
       }
-    })
+    });
     
     // Base Raphael canvas
     var bubbleChart = Raphael(document.getElementById("bubble-chart"), width, height);
@@ -449,12 +449,12 @@
       // Create image for for the bubble.  A slight offset
       // on spread for centering.
       var image = billList.getCatIcon(reordered[i].name);
-      var image = bubbleChart.image('https://s3.amazonaws.com/data.minnpost/projects/mn-legislature-roundup-2012/icons/' + image + '.png', 
+      image = bubbleChart.image('https://s3.amazonaws.com/data.minnpost/projects/mn-legislature-roundup-2012/icons/' + image + '.png', 
         Math.random() * (width - radius), Math.random() * (height - radius), 
-        radius * .9, radius * .9)
+        radius * 0.9, radius * 0.9)
         .attr('opacity', '0.1')
         .attr('cursor', 'pointer')
-        .data('spreadX', xPos - (radius * .5) + 1)
+        .data('spreadX', xPos - (radius * 0.5) + 1)
         .data('spreadY', yPos - (radius * 1.5) + 1)
         .data('name', reordered[i].name);
       
@@ -467,35 +467,38 @@
       // and not the event.  Also, we need to use
       // closure to be able to refer to all the objects
       // on events.
-      var setIt = (function(paper, bL, c, i, t) {
-        return function() {
-          var set = paper.set();
-          set.push(c ).push(i).push(t)
-            .mouseover(function() {
-              c.attr('opacity', '1.0');
-              i.attr('opacity', '1.0');
-            })
-            .mouseout(function() {
-              c.attr('opacity', '0.8');
-              i.attr('opacity', '0.6');
-            })
-            .click(function() {
-              // Handle filtering of Bills list and display
-              if (typeof bL != 'undefined') {
-                bL.filterCategory(this.data('name').replace('\n', ''));
-                $('#bubble-chooser').slideUp('fast');
-                $('#category-details').slideDown('fast');
-              }
-            });
-        
-        }
-      })(bubbleChart, billList, circle, image, text);
+      var setIt = settingIt(bubbleChart, billList, circle, image, text);
       setIt();
+    }
+    
+    // Set it function for bubble chart
+    function settingIt(paper, bL, c, i, t) {
+      return function() {
+        var set = paper.set();
+        set.push(c ).push(i).push(t)
+          .mouseover(function() {
+            c.attr('opacity', '1.0');
+            i.attr('opacity', '1.0');
+          })
+          .mouseout(function() {
+            c.attr('opacity', '0.8');
+            i.attr('opacity', '0.6');
+          })
+          .click(function() {
+            // Handle filtering of Bills list and display
+            if (typeof bL != 'undefined') {
+              bL.filterCategory(this.data('name').replace('\n', ''));
+              $('#bubble-chooser').slideUp('fast');
+              $('#category-details').slideDown('fast');
+            }
+          });
+      
+      };
     }
     
     // Position elements
     spreadVis(bubbleChart);
-  };
+  }
   
   // Function to convert hex to rgb
   function hexToRGB(h, part) {
@@ -503,25 +506,24 @@
     switch (part) {
       case 'R':
         return parseInt(h.substring(0, 2), 16);
-        break;
         
       case 'G':
         return parseInt(h.substring(2, 4), 16);
-        break;
         
       case 'B':
         return parseInt(h.substring(4, 6), 16);
-        break;
     }
-  };
+  }
 
   // Move the bubbles around.
   function spreadVis(paper) {
     paper.forEach(function(el) {
+      var spread;
+      
       // Position elements, pulling position from their data, and 
       // create animation
       if (el.type === 'circle') {
-        var spread = Raphael.animation({
+        spread = Raphael.animation({
           'cx': el.data('spreadX'), 
           'cy': el.data('spreadY')
         }, 1000, 'backOut');
@@ -529,14 +531,14 @@
         
       } 
       else if (el.type === 'text' || el.type === 'image') {
-        var spread = Raphael.animation({
+        spread = Raphael.animation({
           'x': el.data('spreadX'), 
           'y': el.data('spreadY')
         }, 1000, 'backOut');
         el.animate(spread.delay(Math.random() * 1000));
       }
     });
-  };
+  }
   
   // Wrapping text function
   function wrapText(text, textObject) {
@@ -562,10 +564,10 @@
       }
     }
     return textObject.attr('text', tempText.substring(1));
-  };
+  }
   
   // Mark as loading
-  $('<span class="loading-temp">Loading…</span>').hide().prependTo($('#application-nav').parent()).fadeIn();
+  $('<span class="loading-temp">Loading...</span>').hide().prependTo($('#application-nav').parent()).fadeIn();
   
   // Process bill data and handle application.  JSONP callback
   // $.getJSON('data/bills.json', function(data) {
@@ -585,7 +587,7 @@
 
     // Create bills collection
     var bills = new Bills();
-    for (var i in data) {
+    for (i in data) {
       data[i].bill = i;
       bills.add(new Bill(data[i]));
     }
@@ -641,7 +643,7 @@
       }
     })
     .blur(function() {
-      if ($(this).val() == '' || $(this).val() == inputText) {
+      if ($(this).val() === '' || $(this).val() == inputText) {
         $(this).val(inputText).addClass('showing-label');
       }
     });

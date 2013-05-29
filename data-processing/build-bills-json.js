@@ -14,7 +14,7 @@ var sourceFile = path.join(__dirname, '../data/bills-list.json');
 var outputFile = path.join(__dirname, '../data/bills.json');
 // Please don't steal
 var OSAPIKey = '1e1c9b31bf15440aacafe4125f221bf2';
-var billLookupURL = 'http://openstates.org/api/v1/bills/MN/2013-2014/[[[BILL_ID]]]/?apikey=' + OSAPIKey
+var billLookupURL = 'http://openstates.org/api/v1/bills/MN/2013-2014/[[[BILL_ID]]]/?apikey=' + OSAPIKey;
 
 // Map categories
 var subjectMap = {
@@ -125,8 +125,7 @@ function finishProcess(source, output) {
       billsOutput[bill_id] = parseSourceBill(bill);
     
       if (response.statusCode != 200) {
-        console.log('Error on OS call for ' + bill_id + ': ' 
-          + response.statusCode + ' : ' + url);
+        console.log('Error on OS call for ' + bill_id + ': ' + response.statusCode + ' : ' + url);
         return;
       }
       data = JSON.parse(data);
