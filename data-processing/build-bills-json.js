@@ -131,11 +131,12 @@ function finishProcess(source, output) {
       data = JSON.parse(data);
       
       try {
-        billsOutput[bill_id].bill_status = 'indeterminate';
+        // Basics
         billsOutput[bill_id].title = data.title;
         billsOutput[bill_id].billurl = data.sources[0].url;
         billsOutput[bill_id].end_date = data.action_dates.last;
         
+        // Start and end date
         data.actions.forEach(function(a) {
           if (a.type[0] == 'bill:introduced') {
             billsOutput[bill_id].start_date = a.date;
@@ -145,12 +146,32 @@ function finishProcess(source, output) {
           }
         });
         
+        // Categories
         billsOutput[bill_id].categories = billsOutput[bill_id].categories || [];
         billsOutput[bill_id].categories.push('Transportation');
         data.subjects.forEach(function(s) {
           billsOutput[bill_id].categories = billsOutput[bill_id].categories || [];
           billsOutput[bill_id].categories.push((subjectMap[s]) ? subjectMap[s] : '');
         });
+        
+        // Status
+        billsOutput[bill_id].bill_status = 'indeterminate';
+        if (billsOutput[bill_id].signed !== '') {
+          billsOutput[bill_id].bill_status = 'signed'; 
+        }
+        else {
+          billsOutput[bill_id].bill_status = 'pending';
+        }
+        if (data.action_dates.signed) {
+          billsOutput[bill_id].bill_status = 'signed';
+        }
+        if (billsOutput[bill_id].vetoed && billsOutput[bill_id].veto_link === '') {
+          billsOutput[bill_id].bill_status = 'vetoed';
+          billsOutput[bill_id].categories.push('Vetoed');
+        }
+        else if (billsOutput[bill_id].vetoed && billsOutput[bill_id].veto_link !== '') {
+          billsOutput[bill_id].bill_status = 'partially vetoed';
+        }
         
         //senate_sponsors
         billsOutput[bill_id].senate_sponsors = [];
