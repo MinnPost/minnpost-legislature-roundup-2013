@@ -603,7 +603,7 @@
     visCategories(categories, billList);
 
     // Navigation and interface
-    $('.all-categories').on('click', app.options.el, function(e) {
+    $(app.options.el).on('click', '.all-categories', function(e) {
       e.preventDefault();
       if ($('.by-category').hasClass('tab-active')) {
         $('#bubble-chooser').slideDown('fast');
