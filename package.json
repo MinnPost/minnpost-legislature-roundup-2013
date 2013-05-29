@@ -18,7 +18,8 @@
     "minnpost"
   ],
   "dependencies": {
-    "moment": "2.0.x"
+    "moment": "2.0.x",
+    "node-rest-client": "0.1.x"
   },
   "devDependencies": {
     "grunt": "0.4.x",
