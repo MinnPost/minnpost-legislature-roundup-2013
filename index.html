@@ -101,10 +101,17 @@
           <div id="address-chooser">
             <form id="address-chooser-form">
               <p>What bills did my 
-              <input type="radio" name="author_type" value="senator" checked="checked" class="address-radio" id="senator" />
+              
+              <span class="senate-chooser">
+                <input type="radio" name="author_type" value="senator" checked="checked" class="address-radio" id="senator" />
                 <label for="senator">Senator</label>
-              <input type="radio" name="author_type" value="representative" class="address-radio" id="representative" /> 
-                <label for="representative">Representative</label> 
+              </span>
+              
+              <span class="house-chooser">
+                <input type="radio" name="author_type" value="representative" class="address-radio" id="representative" /> 
+                <label for="representative">Representative</label>
+              </span>
+              
               sponsor?</p>
               <input type="text" id="address-chooser-address" class="form-text" />
               <input type="submit" value="Find" id="address-chooser-submit" class="form-submit" />
