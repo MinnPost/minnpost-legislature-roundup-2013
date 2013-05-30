@@ -23,3 +23,11 @@ Minnesota state legislative roundup.  The goal of this project is to create a vi
  
 ## Application
 
+Go to `index-src.html` in a browser.
+
+## Build and Deploy
+
+1. Install `grunt`
+1. To build, run: `grunt`
+1. To deploy, run: `grunt mp-deploy`
+
