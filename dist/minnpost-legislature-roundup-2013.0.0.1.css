@@ -85,7 +85,7 @@
  */
 #minnpost-legislature-wrapper {
   margin: auto;
-  width: 975px;
+  width: 100%;
 } 
 #bill-category-container {
   width: 100%;
@@ -361,4 +361,72 @@
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
+}
+
+
+/* Media style */
+@media screen and (max-width: 900px) {
+  #address-chooser-form .senate-chooser,
+  #address-chooser-form .house-chooser {
+    clear: both;
+    display: block;
+  }
+}
+@media screen and (max-width: 800px) {
+  #bills-list-container {
+    width: 25%;
+  }
+  #bill-detail-container {
+    width: 75%;
+  }
+  
+  #address-chooser-form .address-radio {
+    clear: left;
+  }
+  
+  #address-chooser-form {
+    padding: 3em 1em;
+  }
+  #address-chooser-form input.form-text {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 500px) {
+  #application-nav {
+    font-size: .85em;
+  }
+  #bill-category-container a {
+    display: block;
+    float: none;
+    clear: both;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+  }
+  #bill-detail-container .bill-status {
+    float: none;
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  #bill-detail-container .session-end,
+  #bill-detail-container .session-start {
+    display: none;
+  }
+  
+  #bill-detail-container .bill-house,
+  #bill-detail-container .bill-senate {
+    float: none;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+}
+@media screen and (max-width: 400px) {
+  #bills-list-container {
+    width: 40%;
+  }
+  #bill-detail-container {
+    width: 60%;
+  }
 }
