@@ -300,6 +300,7 @@ function parseSourceBill(bill) {
   newBill.vetoed = (bill.vetoed && bill.vetoed !== '0') ? true : false;
   newBill.veto_link = bill.veto_link;
   newBill.signed = bill.signed;
+  newBill.signed_no_signature = bill.signed_no_signature;
   newBill.categories = bill.topics.split('||');
   
   newBill.notes = '';
@@ -370,7 +371,7 @@ function finishProcess(output) {
         
         // Status
         billsOutput[bill_id].bill_status = 'indeterminate';
-        if (billsOutput[bill_id].signed !== '') {
+        if (billsOutput[bill_id].signed !== '' || billsOutput[bill_id].signed_no_signature !== '') {
           billsOutput[bill_id].bill_status = 'signed'; 
         }
         else {
@@ -379,6 +380,7 @@ function finishProcess(output) {
         if (data.action_dates.signed) {
           billsOutput[bill_id].bill_status = 'signed';
         }
+        
         if (billsOutput[bill_id].vetoed && billsOutput[bill_id].veto_link === '') {
           billsOutput[bill_id].bill_status = 'vetoed';
           billsOutput[bill_id].categories.push('Vetoed');
